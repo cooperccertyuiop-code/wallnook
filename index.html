@@ -3,15 +3,21 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><defs><linearGradient id=%22g%22 x1=%220%22 y1=%220%22 x2=%221%22 y2=%221%22><stop offset=%220%22 stop-color=%22%236a4cff%22/><stop offset=%221%22 stop-color=%22%23ff6fb1%22/></linearGradient></defs><rect width=%22100%22 height=%22100%22 rx=%2224%22 fill=%22url(%23g)%22/><path d=%22M12 80 40 42 58 66 70 52 88 80Z%22 fill=%22%23fff%22/><circle cx=%2268%22 cy=%2230%22 r=%228%22 fill=%22%23fff%22/></svg>">
 <title>WallNook – ดาวน์โหลด</title>
 <style>
 :root{--bg:#f6f7fb;--card:#fff;--fg:#17171f;--muted:#6b6b80;--bd:#e4e6ee;--a:#6a4cff;--b:#ff5fa2;--soft:#efebff}
-@media (prefers-color-scheme:dark){:root{--bg:#14141a;--card:#1e1e26;--fg:#f4f4f8;--muted:#9a9aae;--bd:#2e2e3a;--a:#8f7bff;--b:#ff7ab8;--soft:#2c2752}}
+:root[data-theme=dark]{--bg:#14141a;--card:#1e1e26;--fg:#f4f4f8;--muted:#9a9aae;--bd:#2e2e3a;--a:#8f7bff;--b:#ff7ab8;--soft:#2c2752}
+@media (prefers-color-scheme:dark){:root:not([data-theme]){--bg:#14141a;--card:#1e1e26;--fg:#f4f4f8;--muted:#9a9aae;--bd:#2e2e3a;--a:#8f7bff;--b:#ff7ab8;--soft:#2c2752}}
 *{box-sizing:border-box;margin:0}
 body{font-family:"Segoe UI","Noto Sans Thai",system-ui,sans-serif;background:var(--bg);color:var(--fg);line-height:1.6}
 .w{max-width:960px;margin:0 auto;padding:0 20px}
 nav{display:flex;align-items:center;gap:10px;padding:22px 0;font-weight:700;font-size:18px}
-.logo{width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,var(--a),var(--b))}
+.ic{display:block;border-radius:24%}.sp{flex:1}
+.tg{display:flex;gap:4px;padding:4px;border:1px solid var(--bd);border-radius:12px;background:var(--card)}
+.tg button{font:inherit;font-size:13px;font-weight:600;border:0;background:none;color:var(--muted);padding:6px 12px;border-radius:8px;cursor:pointer}
+.tg button.on{background:var(--soft);color:var(--a)}
+.big{margin:0 auto 18px;filter:drop-shadow(0 14px 24px color-mix(in srgb,var(--a) 45%,transparent))}
 .hero{text-align:center;padding:48px 0 40px}
 h1{font-size:clamp(34px,6vw,56px);line-height:1.2}
 h1 span{background:linear-gradient(90deg,var(--a),var(--b));-webkit-background-clip:text;background-clip:text;color:transparent}
@@ -36,10 +42,12 @@ footer{text-align:center;color:var(--muted);font-size:13px;padding:48px 0 32px}
 </style>
 </head>
 <body>
+<svg width="0" height="0" style="position:absolute"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6a4cff"/><stop offset="1" stop-color="#ff6fb1"/></linearGradient></defs><symbol id="ic" viewBox="0 0 100 100"><rect width="100" height="100" rx="24" fill="url(#g)"/><path d="M12 80 40 42 58 66 70 52 88 80Z" fill="#fff" fill-opacity=".92"/><circle cx="68" cy="30" r="8" fill="#fff" fill-opacity=".92"/></symbol></svg>
 <div class="w">
-<nav><div class="logo"></div>WallNook</nav>
+<nav><svg class="ic" width="38" height="38"><use href="#ic"/></svg>WallNook<span class="sp"></span><div class="tg" id="tg"><button data-m="light">สว่าง</button><button data-m="dark">มืด</button><button data-m="system">ตามระบบ</button></div></nav>
 
 <section class="hero">
+<svg class="ic big" width="96" height="96"><use href="#ic"/></svg>
 <h1>เปลี่ยนวอลเปเปอร์<br><span>ให้เป็นเรื่องง่าย</span></h1>
 <p>ตัวช่วยเปลี่ยนพื้นหลัง เคอร์เซอร์ และเอฟเฟกต์เมาส์สำหรับ Windows ในแอปเดียว</p>
 <!-- วางไฟล์ WallNook.exe ไว้โฟลเดอร์เดียวกับหน้านี้ หรือเปลี่ยน href เป็นลิงก์ดาวน์โหลดของคุณ -->
@@ -68,5 +76,12 @@ footer{text-align:center;color:var(--muted);font-size:13px;padding:48px 0 32px}
 
 <footer>© 2026 WallNook · ข้อมูลทั้งหมดเก็บในเครื่องของคุณ</footer>
 </div>
+<script>
+(function(){var r=document.documentElement,b=document.querySelectorAll("#tg button"),m="system";
+try{m=localStorage.getItem("wn-theme")||"system"}catch(e){}
+function ap(){if(m==="system")r.removeAttribute("data-theme");else r.setAttribute("data-theme",m);
+b.forEach(function(x){x.classList.toggle("on",x.dataset.m===m)})}
+b.forEach(function(x){x.onclick=function(){m=x.dataset.m;try{localStorage.setItem("wn-theme",m)}catch(e){}ap()}});ap()})();
+</script>
 </body>
 </html>
